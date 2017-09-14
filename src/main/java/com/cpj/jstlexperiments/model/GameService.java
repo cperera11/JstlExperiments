@@ -19,7 +19,7 @@ public class GameService {
 
     }
    public String produceWinMessage() {
-        return "You guessed the secret color correctly.";
+        return "You guessed the secret color correctly. The color is ";
 
     }
     public String produceTryAgainMessage() {

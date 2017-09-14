@@ -35,11 +35,16 @@ public class ColorController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+         
+        
         String color = request.getParameter("color");
         GameService gameService = null;
         try {
             gameService = new GameService();
-
+                String secretColor = (gameService.produceColor()).toLowerCase().trim();
+                request.setAttribute("secretColor", secretColor);
+            
             if (color.equals(gameService.produceColor())) {
                 String winMsg = gameService.produceWinMessage();
                 request.setAttribute("winMsg", winMsg);
