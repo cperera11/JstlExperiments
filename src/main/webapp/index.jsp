@@ -16,7 +16,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-
         <h2 style="color: blue">Color Guessing Game</h2>
         <form name="form1" id="form1" method="POST" action="ColorController">
             Try to guess the secret color of the day: <input type="text" value="" name="color"><br><br>
