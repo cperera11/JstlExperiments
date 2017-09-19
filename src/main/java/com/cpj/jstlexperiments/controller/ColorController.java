@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "NameController", urlPatterns = {"/ColorController"})
 public class ColorController extends HttpServlet {
 
+    private static final String DESTINATION = "/index.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,21 +37,20 @@ public class ColorController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-         
-        
-        String color = request.getParameter("color");
+
+        String color = (request.getParameter("color")).toLowerCase().trim();
         GameService gameService = null;
         try {
+            request.setAttribute("color", color);
             gameService = new GameService();
-                String secretColor = (gameService.produceColor()).toLowerCase().trim();
-                request.setAttribute("secretColor", secretColor);
-            
-            if (color.equals(gameService.produceColor())) {
+            String secretColor = (gameService.produceColor()).toLowerCase().trim();
+            request.setAttribute("secretColor", secretColor);
+
+            if (color.equals(secretColor)) {
                 String winMsg = gameService.produceWinMessage();
                 request.setAttribute("winMsg", winMsg);
 
-            } else  {
+            } else {
                 String tryMsg = gameService.produceTryAgainMessage();
                 request.setAttribute("tryMsg", tryMsg);
             }
@@ -58,9 +59,9 @@ public class ColorController extends HttpServlet {
 
         }
 
-        RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
+        RequestDispatcher view = request.getRequestDispatcher(DESTINATION);
         view.forward(request, response);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
